@@ -1,0 +1,3 @@
+[submodule "dependencies/CDS"]
+	path = dependencies/CDS
+	url = https://github.com/LoghinVladDev/CDS
