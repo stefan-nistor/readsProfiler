@@ -1,10 +1,7 @@
-//
-// Created by stefan on 06.01.2022.
-//
-
 #ifndef READSPROFILER_FILTER_H
 #define READSPROFILER_FILTER_H
 #include "include.h"
+#include "Genre.h"
 #include <CDS/Pointer>
 
 using namespace cds;
@@ -32,14 +29,17 @@ private:
     UniquePointer < QLabel >        pTitleLabel        {nullptr};
     UniquePointer < QLabel >        pAuthorLabel       {nullptr};
 
+    UniquePointer < QDateEdit >     pMaxDateEdit       {nullptr};
     UniquePointer < QDateEdit >     pMinDateEdit       {nullptr};
     UniquePointer < QSpinBox >      pRatingBox         {nullptr};
 
+    UniquePointer < QLabel >        pMaxDateLabel      {nullptr};
     UniquePointer < QLabel >        pMinDateLabel      {nullptr};
     UniquePointer < QLabel >        pRatingLabel       {nullptr};
 
     UniquePointer < QScrollArea >   pGenreScrollArea   {nullptr};
     UniquePointer < QLabel >        pGenreLabel        {nullptr};
+    UniquePointer < Genre >         pGenres            {nullptr};
 
     UniquePointer < QPushButton >   pFilterButton      {nullptr};
     UniquePointer < QPushButton >   pRecommendButton   {nullptr};

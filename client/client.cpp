@@ -8,6 +8,8 @@ int main(int argc, char * argv[]){
 
     QApplication app(argc, argv);
     MainWindow w;
+    w.init();
+    w.resize(1300, 700);
     w.show();
     return app.exec();
 }

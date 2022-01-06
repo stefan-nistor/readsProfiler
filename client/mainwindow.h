@@ -9,48 +9,29 @@
 #include <QComboBox>
 #include <QLabel>
 #include <QTableWidget>
+#include <QSplitter>
+#include "Filter.h"
+#include "Genre.h"
+#include "LibraryTable.h"
 
-class MainWindow : public QWidget {
+
+class MainWindow : public QWidget, public AbstractDrawable{
     Q_OBJECT
 
 public:
     explicit MainWindow(QWidget * parent = nullptr);
 
-    ~MainWindow();
+    auto createComponents()     noexcept -> MainWindow & override;
+    auto alignComponents()      noexcept -> MainWindow & override;
+    auto adjustComponents()     noexcept -> MainWindow & override;
+    auto connectComponents()    noexcept -> MainWindow & override;
+    auto styleComponents()      noexcept -> MainWindow & override;
 
 private:
-
-    QHBoxLayout * pMainLayout       {nullptr};
-    QTableWidget * pTableWidget     {nullptr};
-    QGroupBox * pFilterGroup        {nullptr};
-    QMenuBar * pMenuBar             {nullptr};
-
-
-//    QGroupBox * libGroup            {nullptr};
-//    QGroupBox * loginGroup          {nullptr};
-//
-//    QMenuBar * menuBar              {nullptr};
-//
-//    QHBoxLayout * libraryLayout     {nullptr};
-//    QGroupBox * filterGroup         {nullptr};
-//
-//    QVBoxLayout * layoutPage        {nullptr};
-//    QComboBox   * comboBoxPage      {nullptr};
-//    QLabel *    labelPage           {nullptr};
-//
-//    QVBoxLayout * layoutItemsPage   {nullptr};
-//    QComboBox * comboBoxItemsPage   {nullptr};
-//    QLabel * labelItemsPage         {nullptr};
-//
-//    QVBoxLayout * layoutAuthorTitle {nullptr};
-//    QVBoxLayout * layoutAuthor      {nullptr};
-//    QLabel *    labelAuthor         {nullptr};
-//    QLineEdit * lineEditAuthor      {nullptr};
-//
-//    QLabel * labelTitle             {nullptr};
-
-
-
+    UniquePointer < Filter > pFilter {nullptr};
+    UniquePointer < QLayout > pMainLayout {nullptr};
+    UniquePointer < LibraryTable > pLibraryTable {nullptr};
+    UniquePointer < QSplitter > pSplitter {nullptr};
 };
 
 

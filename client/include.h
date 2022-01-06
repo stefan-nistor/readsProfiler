@@ -5,6 +5,8 @@
 #ifndef READSPROFILER_INCLUDE_H
 #define READSPROFILER_INCLUDE_H
 
+#define CDS_QT
+
 #include <QWidget>
 #include <QLayout>
 #include <QLineEdit>
@@ -14,5 +16,9 @@
 #include <QScrollArea>
 #include <QPushButton>
 #include "AbstractDrawable.h"
+#include <CDS/Pointer>
+
+using namespace cds;
+
 
 #endif //READSPROFILER_INCLUDE_H
