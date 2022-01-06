@@ -1,19 +1,11 @@
 #ifndef READSPROFILER_MAINWINDOW_H
 #define READSPROFILER_MAINWINDOW_H
-#include <QMainWindow>
-#include <CDS/String>
-#include <CDS/Thread>
-#include <CDS/Mutex>
-#include <QGroupBox>
-#include <QHBoxLayout>
-#include <QComboBox>
-#include <QLabel>
-#include <QTableWidget>
-#include <QSplitter>
+
+#include "include.h"
 #include "Filter.h"
 #include "Genre.h"
 #include "LibraryTable.h"
-
+#include "LoginWindow.h"
 
 class MainWindow : public QWidget, public AbstractDrawable{
     Q_OBJECT
@@ -32,6 +24,9 @@ private:
     UniquePointer < QLayout > pMainLayout {nullptr};
     UniquePointer < LibraryTable > pLibraryTable {nullptr};
     UniquePointer < QSplitter > pSplitter {nullptr};
+
+    UniquePointer < LoginWindow > pLoginWindow {nullptr};
+
 };
 
 

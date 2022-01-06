@@ -88,6 +88,8 @@ auto Filter::connectComponents() noexcept -> Filter & {
 
 auto Filter::styleComponents() noexcept -> Filter & {
 
+    setMinimumWidth(300);
+
     pTitleLabel->setText( "Title" );
     pAuthorLabel->setText( "Author" );
     pMinDateLabel->setText( "After" );

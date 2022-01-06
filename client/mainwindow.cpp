@@ -16,8 +16,9 @@ auto MainWindow::createComponents() noexcept -> MainWindow & {
 
     this->pFilter = new Filter( this );
     this->pLibraryTable = new LibraryTable( this );
-    this->pSplitter = new QSplitter(  );
+    this->pSplitter = new QSplitter( Qt::Horizontal );
 
+    this-> pLoginWindow = new LoginWindow ( this );
 
     return * this;
 }
@@ -36,7 +37,8 @@ auto MainWindow::alignComponents() noexcept -> MainWindow & {
 auto MainWindow::adjustComponents() noexcept -> MainWindow & {
     this->pFilter->init();
     this->pLibraryTable->init();
-
+    this->pLoginWindow->init();
+    this->pLoginWindow->show();
     return * this;
 }
 
@@ -45,5 +47,9 @@ auto MainWindow::connectComponents() noexcept -> MainWindow & {
 }
 
 auto MainWindow::styleComponents() noexcept -> MainWindow & {
+
+    // Do not understand how the math works here, but it works
+    this->pSplitter->setSizes(QList < int > {sizeHint().width() * 1/3, sizeHint().width() * 2/3 * 5});
+
     return * this;
 }

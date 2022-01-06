@@ -7,6 +7,7 @@
 
 #define CDS_QT
 
+#include <QMainWindow>
 #include <QWidget>
 #include <QLayout>
 #include <QLineEdit>
@@ -15,6 +16,7 @@
 #include <QSpinBox>
 #include <QScrollArea>
 #include <QPushButton>
+#include <QSplitter>
 #include "AbstractDrawable.h"
 #include <CDS/Pointer>
 

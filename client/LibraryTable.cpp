@@ -3,8 +3,8 @@
 //
 
 #include "LibraryTable.h"
-
-LibraryTable::LibraryTable(QWidget *parent){
+#include <QHeaderView>
+LibraryTable::LibraryTable(QWidget *parent) : QTableWidget( parent ){
     ( void ) LibraryTable::createComponents();
 }
 
@@ -42,11 +42,15 @@ auto LibraryTable::styleComponents() noexcept -> LibraryTable & {
 
     setColumnHidden(0, true);
 
+    horizontalHeader()->setSectionResizeMode( QHeaderView::ResizeMode::Stretch );
+
     setFocusPolicy( Qt::NoFocus );
     setSelectionBehavior( QAbstractItemView::SelectRows );
     setSelectionMode( QAbstractItemView::SingleSelection );
     setEditTriggers( QAbstractItemView::NoEditTriggers );
     setVerticalScrollMode( QAbstractItemView::ScrollPerPixel );
+
+
 
     return * this;
 }
