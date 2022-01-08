@@ -11,6 +11,10 @@ auto ClientThread::run() noexcept(false) -> void {
     switch ( static_cast<RequestType> (requestData.getInt("reqID"))){
         case CREATE_ACCOUNT:    create(requestData); break;
         case LOGIN:             login(requestData); break;
+        case FILTER_BOOKS:      filterBooks(requestData); break;
+        case READ:              readBook(requestData); break;
+        case DOWNLOAD:          downloadBook(requestData); break;
+        case RECOMMEND:         recommendBook(requestData); break;
     }
 
     this->_callback(this);
@@ -35,5 +39,26 @@ auto ClientThread::create(JSON const & user) noexcept -> void {
     auto retVal = pServer->create(username, password);
 
     sock.writeInt((int) retVal);
+
+}
+
+auto ClientThread::filterBooks(JSON const & filter ) noexcept -> void {
+
+    auto filterString = filter.getJSON("filter").toString();
+
+    auto retVal = pServer->filterBooks(filterString);
+
+    sock.writeString(retVal);
+}
+
+auto ClientThread::readBook(const JSON &) noexcept -> void {
+
+}
+
+auto ClientThread::downloadBook(const JSON &) noexcept -> void {
+
+}
+
+auto ClientThread::recommendBook(const JSON &) noexcept -> void {
 
 }

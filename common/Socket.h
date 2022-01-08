@@ -148,7 +148,7 @@ public:
             throw Exception ("Socket writeBytes error");
 
         if( static_cast < Size > ( written ) != count)
-            throw Exception( String::f( // NOLINT(clion-misra-cpp2008-0-1-7)
+            throw Exception( String::f(
                     "Unable to completely write message : intended : %d, sent : %d",
                     static_cast < int > ( count ),
                     static_cast < int > ( written )
@@ -245,6 +245,5 @@ public:
     }
 
 };
-
 
 #endif //READSPROFILER_SOCKET_H

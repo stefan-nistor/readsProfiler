@@ -14,7 +14,6 @@ private:
 
     Socket sock;
     Function < void (ClientThread *) > _callback;
-
     Server * pServer { nullptr };
 
 public:
@@ -32,9 +31,12 @@ public:
         this->_callback = callback;
     }
 
-    auto login (JSON const &) noexcept -> void;
-
-    auto create (JSON const &) noexcept -> void;
+    auto login          ( JSON const & ) noexcept -> void;
+    auto create         ( JSON const & ) noexcept -> void;
+    auto filterBooks    ( JSON const & ) noexcept -> void;
+    auto readBook       ( JSON const & ) noexcept -> void;
+    auto downloadBook   ( JSON const & ) noexcept -> void;
+    auto recommendBook  ( JSON const & ) noexcept -> void;
 
 };
 

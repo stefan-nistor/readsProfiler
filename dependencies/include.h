@@ -39,7 +39,11 @@ using namespace cds;
 
 enum RequestType {
     CREATE_ACCOUNT,
-    LOGIN
+    LOGIN,
+    FILTER_BOOKS,
+    READ,
+    DOWNLOAD,
+    RECOMMEND
 };
 
 

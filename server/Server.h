@@ -15,6 +15,7 @@ private:
     HashSet < Thread * > threads;
     Mutex threadLock;
     Mutex usersFileLock;
+    Mutex filterFileLock;
     bool initialized {false};
 
 public:
@@ -59,6 +60,9 @@ public:
 
     auto login(String const & , String const &) noexcept -> bool;
     auto create(String const & , String const &) noexcept -> bool;
+    auto filterBooks( String const &) noexcept -> String;
+
+
 
 };
 

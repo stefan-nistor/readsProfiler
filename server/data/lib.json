@@ -1,11 +1,23 @@
-[
-  {
-    "isbn" : 0,
-    "title" : "Dresor de lei si de studenti",
-    "author" : "prinfo guy",
-    "genre" : "police",
-    "year" : 2020,
-    "rating" : 4,
-    "diskPath" : "./data/books/0.txt"
-  }
-]
+{
+  "books":
+  [
+    {
+      "ISBN": 0,
+      "title": "Dresor de lei si de studenti",
+      "author": "prinfo guy",
+      "genre": "police",
+      "year": 2020,
+      "rating": 4,
+      "diskPath": "./data/books/0.txt"
+    },
+    {
+      "ISBN": 1,
+      "title": "Opera magna",
+      "author": "dante",
+      "genre": "drama",
+      "year": 1920,
+      "rating": 2,
+      "diskPath": "./data/books/1.txt"
+    }
+  ]
+}

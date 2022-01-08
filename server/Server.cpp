@@ -58,3 +58,50 @@ auto Server::create(String const & username, String const & password) noexcept -
 
     return true;
 }
+
+auto Server::filterBooks( String const & filterString) noexcept -> String {
+
+    auto lib = JSON :: load ( Path().parent() / "server/data/lib.json" );
+
+    auto filter = JSON :: parse (filterString);
+
+    JSON::Array results;
+    Index nrBooks = 0;
+
+    for(auto const & book : lib.getArray("books")){
+        std::cout << book.getJSON().getInt("ISBN") << '\n';
+    }
+
+    for(auto const & book : lib.getArray("books")) {
+        if (book.getJSON().getString("title").contains(filter.getString("title"))) {
+            if (book.getJSON().getString("author").contains(filter.getString("author"))) {
+                if (book.getJSON().getInt("year") <= filter.getInt("before") &&
+                    book.getJSON().getInt("year") >= filter.getInt("after")) {
+                    if (book.getJSON().getInt("rating") >= filter.getInt("rating")) {
+                        for (auto const &gen: filter.getArray("genre")) {
+                            if (book.getJSON().getString("genre").contains(gen.getString())) {
+
+                                JSON result;
+                                nrBooks++;
+
+                                filterFileLock.lock();
+
+                                result.put("ISBN", book.getJSON().getInt("ISBN"));
+                                result.put("title", book.getJSON().getString("title"));
+                                result.put("author", book.getJSON().getString("author"));
+                                result.put("genre", book.getJSON().getString("genre"));
+                                result.put("year", book.getJSON().getInt("year"));
+                                result.put("rating", book.getJSON().getInt("rating"));
+                                result.put("diskPath", book.getJSON().getString("diskPath"));
+                                results.put(nrBooks, result);
+
+                                filterFileLock.unlock();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return results.toString();
+}

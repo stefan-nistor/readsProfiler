@@ -103,5 +103,11 @@ auto Filter::styleComponents() noexcept -> Filter & {
     pMinDateEdit->setDisplayFormat( "yyyy" );
     pMaxDateEdit->setDisplayFormat( "yyyy" );
 
+    QDate minDate;
+    minDate.setDate(1970,1,1);
+
+    pMinDateEdit->setDate(minDate);
+    pMaxDateEdit->setDate(QDate::currentDate());
+
     return * this;
 }
