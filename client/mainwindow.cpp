@@ -20,6 +20,8 @@ auto MainWindow::createComponents() noexcept -> MainWindow & {
 
     this-> pLoginWindow = new LoginWindow ( this );
 
+   connect( this-> pLoginWindow, & LoginWindow::closed, [ this ]{ this->pLoginWindow = nullptr; } );
+
     return * this;
 }
 
@@ -39,6 +41,7 @@ auto MainWindow::adjustComponents() noexcept -> MainWindow & {
     this->pLibraryTable->init();
     this->pLoginWindow->init();
     this->pLoginWindow->show();
+    this->pLoginWindow->setWindowState((windowState() & ~Qt::WindowMaximized) | Qt::WindowActive);
     return * this;
 }
 
@@ -52,4 +55,21 @@ auto MainWindow::styleComponents() noexcept -> MainWindow & {
     this->pSplitter->setSizes(QList < int > {sizeHint().width() * 1/3, sizeHint().width() * 2/3 * 5});
 
     return * this;
+}
+
+auto MainWindow::closeEvent(QCloseEvent *) noexcept -> void {
+    if( this->pLoginWindow != nullptr )
+        this->pLoginWindow->close();
+    emit this->close();
+}
+
+MainWindow::~MainWindow() noexcept {
+
+    this->pMainLayout->removeWidget(pSplitter);
+    this->pFilter = nullptr;
+    this->pLibraryTable = nullptr;
+    this->pSplitter = nullptr;
+
+    this->pLoginWindow = nullptr;
+
 }

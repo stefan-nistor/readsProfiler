@@ -78,3 +78,7 @@ auto LoginWindow::styleComponents() noexcept -> LoginWindow & {
 
     return * this;
 }
+
+auto LoginWindow::closeEvent(QCloseEvent *) noexcept -> void {
+    emit this->closed();
+}

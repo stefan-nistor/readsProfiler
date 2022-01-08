@@ -1,7 +1,7 @@
 #ifndef READSPROFILER_MAINWINDOW_H
 #define READSPROFILER_MAINWINDOW_H
 
-#include "include.h"
+#include "../dependencies/include.h"
 #include "Filter.h"
 #include "Genre.h"
 #include "LibraryTable.h"
@@ -18,6 +18,10 @@ public:
     auto adjustComponents()     noexcept -> MainWindow & override;
     auto connectComponents()    noexcept -> MainWindow & override;
     auto styleComponents()      noexcept -> MainWindow & override;
+
+    auto closeEvent ( QCloseEvent * ) noexcept -> void override;
+
+    ~MainWindow() noexcept override;
 
 private:
     UniquePointer < Filter > pFilter {nullptr};

@@ -1,6 +1,6 @@
 #ifndef READSPROFILER_GENRE_H
 #define READSPROFILER_GENRE_H
-#include "include.h"
+#include "../dependencies/include.h"
 #include <CDS/Array>
 #include <QCheckBox>
 using namespace cds;

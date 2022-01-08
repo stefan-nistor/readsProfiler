@@ -1,6 +1,6 @@
 #ifndef READSPROFILER_FILTER_H
 #define READSPROFILER_FILTER_H
-#include "include.h"
+#include "../dependencies/include.h"
 #include "Genre.h"
 #include <CDS/Pointer>
 

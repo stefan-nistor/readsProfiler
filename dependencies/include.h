@@ -17,10 +17,30 @@
 #include <QScrollArea>
 #include <QPushButton>
 #include <QSplitter>
-#include "AbstractDrawable.h"
-#include <CDS/Pointer>
 
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/stat.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+
+#include "../client/AbstractDrawable.h"
+#include <CDS/Pointer>
+#include <CDS/List>
+#include <CDS/Thread>
+#include <CDS/Function>
+#include <CDS/JSON>
+
+#define PORT 42069
+#define IP "127.0.0.1"
+#define MAX_CLIENTS 10
 using namespace cds;
+
+enum RequestType {
+    CREATE_ACCOUNT,
+    LOGIN
+};
 
 
 #endif //READSPROFILER_INCLUDE_H

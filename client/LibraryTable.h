@@ -4,7 +4,7 @@
 
 #ifndef READSPROFILER_LIBRARYTABLE_H
 #define READSPROFILER_LIBRARYTABLE_H
-#include "include.h"
+#include "../dependencies/include.h"
 #include <QTableWidget>
 #include <QAbstractItemView>
 

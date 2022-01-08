@@ -1,0 +1,25 @@
+{
+    "users" : 
+    [
+        {
+            "username" : "admin",
+            "password" : "admin"
+        },
+        {
+            "username" : "nistor",
+            "password" : "nistor"
+        },
+        {
+            "username" : "admin1",
+            "password" : "admin"
+        },
+        {
+            "username" : "admin2",
+            "password" : "admin1"
+        },
+        {
+            "username" : "admin3",
+            "password" : "nistor"
+        }
+    ]
+}

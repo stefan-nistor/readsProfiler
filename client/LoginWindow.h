@@ -1,6 +1,6 @@
 #ifndef READSPROFILER_LOGINWINDOW_H
 #define READSPROFILER_LOGINWINDOW_H
-#include "include.h"
+#include "../dependencies/include.h"
 
 class LoginWindow : public QWidget, public AbstractDrawable{
     Q_OBJECT
@@ -13,6 +13,30 @@ public:
     auto adjustComponents()     noexcept -> LoginWindow & override;
     auto connectComponents()    noexcept -> LoginWindow & override;
     auto styleComponents()      noexcept -> LoginWindow & override;
+
+    auto closeEvent( QCloseEvent * ) noexcept -> void override;
+
+    ~LoginWindow() noexcept override {
+
+        pMainLayout->removeWidget( pInfoLabel );
+        pMainLayout->removeItem( pCredentialLayout );
+        pMainLayout->removeWidget( pLoginButton );
+        pMainLayout->removeWidget( pCreateLabel );
+        pMainLayout->removeWidget( pCreateButton );
+
+        pCredentialLayout->removeItem( pLabelLayout );
+        pCredentialLayout->removeItem( pInputLayout );
+
+        pInputLayout->removeWidget(pUserEdit);
+        pInputLayout->removeWidget(pPassEdit);
+
+        pLabelLayout->removeWidget( pUserLabel );
+        pLabelLayout->removeWidget( pPassLabel );
+
+    }
+
+signals:
+    void closed();
 
 private:
 
