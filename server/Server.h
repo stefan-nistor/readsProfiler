@@ -13,9 +13,13 @@ class Server {
 private:
     UniquePointer < Socket > serverSocket = new Socket();
     HashSet < Thread * > threads;
+    Array < int > downloads;
     Mutex threadLock;
     Mutex usersFileLock;
     Mutex filterFileLock;
+    Mutex readLibLock;
+    Mutex downloadLock;
+
     bool initialized {false};
 
 public:
@@ -61,8 +65,9 @@ public:
     auto login(String const & , String const &) noexcept -> bool;
     auto create(String const & , String const &) noexcept -> bool;
     auto filterBooks( String const &) noexcept -> String;
+    auto readBook ( int ) noexcept -> String;
     auto recommendBooks () noexcept -> String;
-    auto downloadBook (String const &) noexcept -> String;
+    auto downloadBook (int isbn) noexcept -> String;
 
 
 

@@ -44,7 +44,6 @@ auto ClientThread::create(JSON const & user) noexcept -> void {
 
 auto ClientThread::filterBooks(JSON const & filterReq ) noexcept -> void {
 
-//    auto filterString = filter.getJSON("filter").toString();
     auto  filterString = filterReq.getJSON("filter").toString();
 
     auto retVal = pServer->filterBooks(filterString);
@@ -52,13 +51,22 @@ auto ClientThread::filterBooks(JSON const & filterReq ) noexcept -> void {
     sock.writeString(retVal);
 }
 
-auto ClientThread::readBook(const JSON & isbn) noexcept -> void {
+auto ClientThread::readBook(const JSON & reqBook) noexcept -> void {
 
-    auto isbnString = isbn.getJSON("");
+    auto isbn = reqBook.getInt("ISBN");
 
+    auto retVal = pServer ->readBook(isbn);
+
+    sock.writeString(retVal);
 }
 
-auto ClientThread::downloadBook(const JSON &) noexcept -> void {
+auto ClientThread::downloadBook(const JSON & reqBook) noexcept -> void {
+
+    auto isbn = reqBook.getInt("ISBN");
+
+q    auto retVal = pServer->downloadBook(isbn);
+
+    sock.writeString(retVal);
 
 }
 

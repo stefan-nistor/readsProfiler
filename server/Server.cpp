@@ -101,3 +101,46 @@ auto Server::filterBooks( String const & filterString) noexcept -> String {
     }
     return results.toString();
 }
+
+auto Server::readBook(int isbn) noexcept -> String {
+
+    readLibLock.lock();
+    auto lib = JSON :: load ( Path().parent() / "server/data/lib.json" );
+    readLibLock.unlock();
+
+    std::stringstream result;
+
+    for(auto const & book : lib.getArray("books")){
+        if(book.getJSON().getInt("ISBN") == isbn){
+            readLibLock.lock();
+            std::ifstream in ((Path().parent() / book.getJSON().getString("diskPath")).toString().cStr());
+            result << in.rdbuf();
+            in.close();
+            readLibLock.unlock();
+        }
+    }
+
+    return result.str();
+}
+
+auto Server::downloadBook(int isbn) noexcept -> String {
+
+    downloadLock.lock();
+    auto lib = JSON :: load ( Path().parent() / "server/data/lib.json" );
+    downloadLock.unlock();
+
+    std::stringstream  result;
+
+    for(auto const & book : lib.getArray("books")) {
+        if( book.getJSON().getInt("ISBN") == isbn){
+           // downloads[isbn]++;
+            downloadLock.lock();
+            std::ifstream  in ((Path().parent() / book.getJSON().getString("diskPath")).toString().cStr());
+            result << in.rdbuf();
+            in.close();
+            downloadLock.unlock();
+        }
+    }
+
+    return result.str();
+}

@@ -9,17 +9,16 @@ class RequestHandler {
 
     static auto makeLoginRequest(String const &, String const &) -> bool;
     static auto makeCreateRequest(String const &, String const &) -> bool;
-    static auto makeBooksRequest(String const &) -> void;
+    static auto makeBooksRequest(String const &) -> String;
 
 
 };
 
+#include <filesystem>
+
 int main(){
 
-    auto makeLoginRequest = [] (
-            String const & username,
-            String const & password
-    ) {
+    auto makeLoginRequest           = [] ( String const & username, String const & password ) {
 
         UniquePointer<Socket> clientSocket = new Socket();
         clientSocket->connect(IP, PORT);
@@ -36,10 +35,7 @@ int main(){
 
     };
 
-    auto makeCreateRequest = [] (
-            String const & username,
-            String const & password
-            ){
+    auto makeCreateRequest          = [] ( String const & username, String const & password ) {
         UniquePointer<Socket> clientSocket = new Socket();
         clientSocket->connect(IP, PORT);
 
@@ -54,7 +50,7 @@ int main(){
         std::cout << response;
     };
 
-    auto makeFilterBooksRequest = [] (String const & filterString){
+    auto makeFilterBooksRequest     = [] ( String const & filterString ) {
 
         UniquePointer <Socket> clientSocket = new Socket;
         clientSocket->connect(IP, PORT);
@@ -74,13 +70,58 @@ int main(){
         return response;
     };
 
+    auto makeReadRequest            = [] (int bookID) {
 
-    /// filter json data from client
-    auto test = JSON :: load ( Path().parent() / "server/test.json" ).toString();
+        UniquePointer < Socket > clientSocket = new Socket;
+        clientSocket->connect(IP, PORT);
 
-    auto clientFilter = JSON :: parse( test );
+        JSON requestedBook;
+        requestedBook.put("reqID", READ);
+        requestedBook.put("ISBN", bookID);
 
-    makeFilterBooksRequest(test);
+        clientSocket->writeString(requestedBook.toString());
+
+        auto response = clientSocket -> readString();
+
+        return response;
+    };
+
+    auto makeDownloadRequest        = [] (int bookID) {
+
+        UniquePointer < Socket > clientSocket = new Socket;
+        clientSocket -> connect(IP, PORT);
+
+        JSON requestedBook;
+        requestedBook.put("reqID", DOWNLOAD);
+        requestedBook.put("ISBN", bookID);
+
+        clientSocket->writeString(requestedBook.toString());
+
+        auto response = clientSocket -> readString();
+
+        mkdir("../client/download", 0777);
+
+        String filePath = ".txt";
+        filePath.prepend(bookID);
+        filePath.prepend("../client/download/");
+
+        std::ofstream out ("../client/download/0.txt");
+        out << response;
+        out.close();
+
+        return response;
+
+    };
+
+    auto makeRecommendRequest = [] {
+
+        UniquePointer < Socket > clientSocket = new Socket;
+        clientSocket -> connect(IP, PORT);
+
+        JSON requestRecommend;
+        requestRecommend.put("reqID", RECOMMEND);
+
+    };
 
 
     return 0;

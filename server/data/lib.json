@@ -8,7 +8,8 @@
       "genre": "police",
       "year": 2020,
       "rating": 4,
-      "diskPath": "./data/books/0.txt"
+      "diskPath": "server/data/books/0.txt",
+      "downloads" : 0
     },
     {
       "ISBN": 1,
@@ -17,7 +18,8 @@
       "genre": "drama",
       "year": 1920,
       "rating": 2,
-      "diskPath": "./data/books/1.txt"
+      "diskPath": "server/data/books/1.txt",
+      "downloads" : 0
     }
   ]
 }
