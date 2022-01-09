@@ -42,16 +42,19 @@ auto ClientThread::create(JSON const & user) noexcept -> void {
 
 }
 
-auto ClientThread::filterBooks(JSON const & filter ) noexcept -> void {
+auto ClientThread::filterBooks(JSON const & filterReq ) noexcept -> void {
 
-    auto filterString = filter.getJSON("filter").toString();
+//    auto filterString = filter.getJSON("filter").toString();
+    auto  filterString = filterReq.getJSON("filter").toString();
 
     auto retVal = pServer->filterBooks(filterString);
 
     sock.writeString(retVal);
 }
 
-auto ClientThread::readBook(const JSON &) noexcept -> void {
+auto ClientThread::readBook(const JSON & isbn) noexcept -> void {
+
+    auto isbnString = isbn.getJSON("");
 
 }
 

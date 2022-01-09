@@ -9,12 +9,10 @@ class RequestHandler {
 
     static auto makeLoginRequest(String const &, String const &) -> bool;
     static auto makeCreateRequest(String const &, String const &) -> bool;
-    static auto makeBooksRequest(String const &) -> bool;
+    static auto makeBooksRequest(String const &) -> void;
 
 
 };
-
-static auto filter(String const & filterString ) noexcept -> String;
 
 int main(){
 
@@ -56,83 +54,35 @@ int main(){
         std::cout << response;
     };
 
-    auto makeBooksRequest = [] (String const & filters){
+    auto makeFilterBooksRequest = [] (String const & filterString){
 
         UniquePointer <Socket> clientSocket = new Socket;
         clientSocket->connect(IP, PORT);
 
+        auto clientFilter = JSON :: parse( filterString );
 
+        JSON filterReq;
+        filterReq.put("reqID", FILTER_BOOKS);
+        filterReq.put("filter", clientFilter.getJSON("filter") );
+
+        auto filter = filterReq.getJSON("filter");
+
+        clientSocket->writeString(filterReq.toString());
+
+        auto response = clientSocket->readString();
+
+        return response;
     };
 
-    auto test = JSON :: load ( Path().parent() / "server/test.json" );
-//
-//    std::cout << test.toString().cStr() << '\n';
-    auto j = JSON::parse( test.getArray("filter").toString() );
 
-//    std :: cout << j.toString() << '\n';
-//
-//    std::cout << j.getString("title");
+    /// filter json data from client
+    auto test = JSON :: load ( Path().parent() / "server/test.json" ).toString();
 
+    auto clientFilter = JSON :: parse( test );
 
-    std::cout << filter(j.toString()) <<'\n';
+    makeFilterBooksRequest(test);
 
 
-//
-//    for(auto const & filter : test.getArray("filter")){
-//        std::cout << filter.getJSON().getString("title") << '\n';
-//        std::cout << filter.getJSON().getString("author") << '\n';
-//        std::cout << filter.getJSON().getInt("after") << '\n';
-//        std::cout << filter.getJSON().getInt("before") << '\n';
-//        std::cout << filter.getJSON().getInt("rating") << '\n';
-//        std::cout << filter.getJSON().getArray("genre") << '\n';
-//        for(auto const & gen : filter.getJSON().getArray("genre"))
-//            std::cout << gen.toString() << '\n';
-//    }
-
+    return 0;
 }
 
-
-static auto filter(String const & filterString ) noexcept -> String{
-
-    auto lib = JSON :: load ( Path().parent() / "server/data/lib.json" );
-
-
-    auto filter = JSON :: parse (filterString);
-
-    JSON::Array results;
-    Index nrBooks = 0;
-
-    for(auto const & book : lib.getArray("books")){
-        std::cout << book.getJSON().getInt("ISBN") << '\n';
-    }
-
-    for(auto const & book : lib.getArray("books")) {
-        if (book.getJSON().getString("title").contains(filter.getString("title"))) {
-            if (book.getJSON().getString("author").contains(filter.getString("author"))) {
-                if (book.getJSON().getInt("year") <= filter.getInt("before") &&
-                    book.getJSON().getInt("year") >= filter.getInt("after")) {
-                    if (book.getJSON().getInt("rating") >= filter.getInt("rating")) {
-                        for (auto const &gen: filter.getArray("genre")) {
-                            if (book.getJSON().getString("genre").contains(gen.getString())) {
-                                JSON result;
-                                nrBooks++;
-                                result.put("ISBN", book.getJSON().getInt("ISBN"));
-                                result.put("title", book.getJSON().getString("title"));
-                                result.put("author", book.getJSON().getString("author"));
-                                result.put("genre", book.getJSON().getString("genre"));
-                                result.put("year", book.getJSON().getInt("year"));
-                                result.put("rating", book.getJSON().getInt("rating"));
-                                result.put("diskPath", book.getJSON().getString("diskPath"));
-                                results.put(nrBooks, result);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-    }
-
-    return results.toString();
-
-}

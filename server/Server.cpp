@@ -68,10 +68,6 @@ auto Server::filterBooks( String const & filterString) noexcept -> String {
     JSON::Array results;
     Index nrBooks = 0;
 
-    for(auto const & book : lib.getArray("books")){
-        std::cout << book.getJSON().getInt("ISBN") << '\n';
-    }
-
     for(auto const & book : lib.getArray("books")) {
         if (book.getJSON().getString("title").contains(filter.getString("title"))) {
             if (book.getJSON().getString("author").contains(filter.getString("author"))) {

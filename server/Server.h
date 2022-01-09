@@ -61,6 +61,8 @@ public:
     auto login(String const & , String const &) noexcept -> bool;
     auto create(String const & , String const &) noexcept -> bool;
     auto filterBooks( String const &) noexcept -> String;
+    auto recommendBooks () noexcept -> String;
+    auto downloadBook (String const &) noexcept -> String;
 
 
 
