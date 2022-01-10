@@ -79,14 +79,13 @@ auto RequestHandler::makeDownloadRequest(int bookID) noexcept -> String {
     clientSocket->writeString(requestedBook.toString());
 
     auto response = clientSocket -> readString();
-
     mkdir("../client/download", 0777);
 
     String filePath = ".txt";
     filePath.prepend(bookID);
     filePath.prepend("../client/download/");
 
-    std::ofstream out ("../client/download/0.txt");
+    std::ofstream out (filePath.toStdString());
     out << response;
     out.close();
 

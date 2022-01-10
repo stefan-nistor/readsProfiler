@@ -2,13 +2,13 @@
   "books":
   [
     {
-      "ISBN": 0,
+      "ISBN": 2,
       "title": "exam bd",
       "author": "Varlan COXMIN",
       "genre": "Horror",
-      "year": 2017,
+      "year": 2019,
       "rating": 3,
-      "diskPath": "server/data/books/0.txt"
+      "diskPath": "server/data/books/2.txt"
     },
     {
       "ISBN": 1,
@@ -20,7 +20,7 @@
       "diskPath": "server/data/books/1.txt"
     },
     {
-      "ISBN": 3,
+      "ISBN": 0,
       "title": "Dresor de lei si de studenti",
       "author": "prinfo guy",
       "genre": "Police",

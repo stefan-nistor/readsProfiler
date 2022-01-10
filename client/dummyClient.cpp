@@ -115,19 +115,11 @@ int main(){
 
     };
 
+    String filePath = ".txt";
+    filePath.prepend(1);
+    filePath.prepend("../client/download/");
 
-    std::cout << makeFilterBooksRequest ("{\n"
-                                         "    \"filter\" :\n"
-                                         "    {\n"
-                                         "        \"title\" : \"\",\n"
-                                         "        \"author\": \"\",\n"
-                                         "        \"after\" : 1703,\n"
-                                         "        \"before\": 2200,\n"
-                                         "        \"rating\": 1,\n"
-                                         "        \"genre\": [\n"
-                                         "        ]\n"
-                                         "    }\n"
-                                         "}");
+    std::cout << filePath;
 
     return 0;
 }

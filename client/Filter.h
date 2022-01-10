@@ -21,11 +21,8 @@ public:
     auto styleComponents()      noexcept -> Filter & override;
 
     auto getFilters() noexcept -> String;
-    auto getGenre() noexcept -> String;
 
-    inline auto getFilteredBooks() noexcept -> String {
-        return this->filteredBookList;
-    }
+
 
 public slots:
     void filterPressed();

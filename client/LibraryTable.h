@@ -21,6 +21,10 @@ public:
 
     auto addEntry (String const &) noexcept -> void;
 
+public slots:
+    void readPressed(int rowIndex);
+    void downloadPressed(int rowIndex);
+
 private:
 
     QStringList  tableHeader {nullptr};
