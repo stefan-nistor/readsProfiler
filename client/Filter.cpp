@@ -85,7 +85,7 @@ auto Filter::adjustComponents() noexcept -> Filter & {
 auto Filter::connectComponents() noexcept -> Filter & {
 
     connect(pFilterButton, SIGNAL(clicked()), this, SLOT(filterPressed()));
-
+    connect(pRecommendButton, SIGNAL(clicked()), this, SLOT(recommendPressed()));
     return * this;
 }
 
@@ -144,4 +144,15 @@ auto Filter::getFilters() noexcept -> String {
     filters.put("filter", result);
 
     return filters.toString();
+}
+
+void Filter::recommendPressed() {
+
+    JSON bookList;
+    auto list = RequestHandler :: makeRecommendRequest();
+    bookList.put("books", JSON::Array::parse(list));
+
+    filteredBookList = bookList.toString();
+    emit listReceived(filteredBookList);
+
 }

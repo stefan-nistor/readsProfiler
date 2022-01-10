@@ -93,6 +93,8 @@ void LibraryTable::readPressed(int rowIndex) {
     auto * readWindow = new ReadWindow();
 
     readWindow->setText(RequestHandler ::makeReadRequest(Int::parse(entry)));
+    readWindow->setTitle(item(rowIndex, 1)->text());
+    readWindow->setAuthor(item(rowIndex, 2)->text());
     readWindow->resize(800, 600);
     readWindow->init();
     readWindow->show();

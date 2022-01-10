@@ -72,4 +72,7 @@ auto ClientThread::downloadBook(const JSON & reqBook) noexcept -> void {
 
 auto ClientThread::recommendBook(const JSON &) noexcept -> void {
 
+    auto retVal = pServer->recommendBooks();
+
+    sock.writeString(retVal);
 }

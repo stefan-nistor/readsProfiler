@@ -30,9 +30,19 @@ public:
         this->text = text;
     }
 
+    inline auto setTitle(String const & title) noexcept -> void {
+        this->title = title;
+    }
+
+    inline auto setAuthor(String const & author) noexcept -> void {
+        this->author = author;
+    }
+
 private:
 
     String text {};
+    String title {};
+    String author {};
 
     UniquePointer < QTextEdit > pTextViewer {nullptr};
     UniquePointer < QLayout >  pMainLayout {nullptr};

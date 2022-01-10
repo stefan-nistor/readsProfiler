@@ -3,6 +3,8 @@
 //
 
 #include "mainwindow.h"
+#include <QApplication>
+#include <QScreen>
 
 MainWindow::MainWindow(QWidget *parent) {
 
@@ -19,7 +21,6 @@ auto MainWindow::createComponents() noexcept -> MainWindow & {
     this->pSplitter = new QSplitter( Qt::Horizontal );
 
     this-> pLoginWindow = new LoginWindow ( this );
-
 
     return * this;
 }
@@ -41,10 +42,12 @@ auto MainWindow::adjustComponents() noexcept -> MainWindow & {
     this->pLoginWindow->init();
     this->pLoginWindow->show();
     this->pLoginWindow->setWindowState((windowState() & ~Qt::WindowMaximized) | Qt::WindowActive);
+    this->setEnabled(false);
     return * this;
 }
 
 auto MainWindow::connectComponents() noexcept -> MainWindow & {
+    connect( this-> pLoginWindow, & LoginWindow::connected, [ this ] {this->setEnabled( true );} );
     connect( this-> pLoginWindow, & LoginWindow::closed, [ this ]{ this->pLoginWindow = nullptr; } );
     connect( this->pFilter, & Filter::listReceived, this, &MainWindow::populateTable );
     return * this;
@@ -54,6 +57,8 @@ auto MainWindow::styleComponents() noexcept -> MainWindow & {
 
     // Do not understand how the math works here, but it works
     this->pSplitter->setSizes(QList < int > {sizeHint().width() * 1/3, sizeHint().width() * 2/3 * 5});
+
+    this->setWindowTitle("Reads Profiler");
 
     return * this;
 }

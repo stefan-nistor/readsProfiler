@@ -9,6 +9,11 @@
 #include "../common/Socket.h"
 #include "ClientThread.h"
 
+enum GENRES {
+    DRAMA, COMEDY, HORROR, NOVEL, POLICE, THEATRE
+};
+
+
 class Server {
 private:
     UniquePointer < Socket > serverSocket = new Socket();
@@ -19,7 +24,7 @@ private:
     Mutex filterFileLock;
     Mutex readLibLock;
     Mutex downloadLock;
-
+    Mutex recommendLock;
     bool initialized {false};
 
 public:
@@ -70,7 +75,9 @@ public:
     auto downloadBook (int isbn) noexcept -> String;
 
 
-
+    auto writeStat(int gen) noexcept -> void;
+    auto statExists (int gen) noexcept -> bool;
+    static auto getStatFromInt (int gen) noexcept -> String;
 };
 
 

@@ -32,5 +32,10 @@ auto ReadWindow::connectComponents() noexcept -> ReadWindow & {
 
 auto ReadWindow::styleComponents() noexcept -> ReadWindow & {
     pTextViewer->setText(text);
+
+    String fullTitle = title.append(" by ").append(author);
+    std::cout << "read title " << fullTitle << '\n';
+    this->setWindowTitle(fullTitle.cStr());
+
     return * this;
 }

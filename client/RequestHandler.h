@@ -32,6 +32,7 @@ public:
     static auto makeFilterBooksRequest  ( String const & filterString ) noexcept -> String;
     static auto makeReadRequest ( int bookID ) noexcept -> String;
     static auto makeDownloadRequest ( int bookID ) noexcept -> String;
+    static auto makeRecommendRequest () noexcept -> String;
 
 };
 

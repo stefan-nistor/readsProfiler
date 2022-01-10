@@ -42,6 +42,7 @@ public slots:
 
 signals:
     void closed();
+    void connected();
 
 private:
 

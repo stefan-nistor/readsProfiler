@@ -8,7 +8,8 @@
       "genre": "Horror",
       "year": 2019,
       "rating": 3,
-      "diskPath": "server/data/books/2.txt"
+      "diskPath": "server/data/books/2.txt",
+      "downloads" : 0
     },
     {
       "ISBN": 1,
@@ -17,7 +18,8 @@
       "genre": "Drama",
       "year": 1980,
       "rating": 2,
-      "diskPath": "server/data/books/1.txt"
+      "diskPath": "server/data/books/1.txt",
+      "downloads" : 0
     },
     {
       "ISBN": 0,
@@ -26,7 +28,8 @@
       "genre": "Police",
       "year": 2020,
       "rating": 4,
-      "diskPath": "server/data/books/0.txt"
+      "diskPath": "server/data/books/0.txt",
+      "downloads" : 0
     }
   ]
 }

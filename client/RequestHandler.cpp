@@ -91,3 +91,15 @@ auto RequestHandler::makeDownloadRequest(int bookID) noexcept -> String {
 
     return response;
 }
+
+auto RequestHandler::makeRecommendRequest() noexcept -> String {
+    UniquePointer < Socket > clientSocket = new Socket;
+    clientSocket -> connect(IP, PORT);
+
+    JSON recommendReq;
+    recommendReq.put("reqID", RECOMMEND);
+
+    clientSocket->writeString(recommendReq.toString());
+
+    return clientSocket->readString();
+}

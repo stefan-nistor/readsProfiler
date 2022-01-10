@@ -26,6 +26,7 @@ public:
 
 public slots:
     void filterPressed();
+    void recommendPressed();
 
 signals:
     void listReceived(String const & list);

@@ -81,6 +81,8 @@ auto LoginWindow::styleComponents() noexcept -> LoginWindow & {
 
     pPassEdit->setEchoMode(QLineEdit::Password);
 
+    this->setWindowTitle("Authenticate");
+
     return * this;
 }
 
@@ -95,6 +97,9 @@ void LoginWindow::loginPressed() {
     if (! RequestHandler::login(pUserEdit->text(), pPassEdit->text()) )
         return;
 
+    isConnected = true;
+
+    emit this->connected();
     this->close();
 }
 
@@ -106,7 +111,8 @@ void LoginWindow::createAccountPressed() {
     if (! RequestHandler::create (pUserEdit->text(), pPassEdit->text()))
         return;
 
-    RequestHandler::login (pUserEdit->text(), pPassEdit->text());
+    if(RequestHandler::login (pUserEdit->text(), pPassEdit->text()))
+        emit this->connected();
 
     this->close();
 }
