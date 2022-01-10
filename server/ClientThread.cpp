@@ -64,7 +64,7 @@ auto ClientThread::downloadBook(const JSON & reqBook) noexcept -> void {
 
     auto isbn = reqBook.getInt("ISBN");
 
-q    auto retVal = pServer->downloadBook(isbn);
+    auto retVal = pServer->downloadBook(isbn);
 
     sock.writeString(retVal);
 

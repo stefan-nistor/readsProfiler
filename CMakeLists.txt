@@ -25,7 +25,7 @@ add_executable(client
         client/LibraryTable.h
         client/LoginWindow.cpp
         client/LoginWindow.h
-        common/Socket.h)
+        common/Socket.h client/RequestHandler.cpp client/RequestHandler.h)
 
 add_executable(server
         server/Server.cpp

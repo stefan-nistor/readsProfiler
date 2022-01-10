@@ -48,3 +48,22 @@ auto Genre::connectComponents() noexcept -> Genre & {
 auto Genre::styleComponents() noexcept -> Genre & {
     return * this;
 }
+
+auto Genre::getGenre() noexcept -> String {
+    JSON::Array checkedGenres;
+    int size = 0;
+    for (auto const & item : checkboxes) {
+        if (item->isChecked()) {
+            checkedGenres.put(size, item->text().toStdString());
+            size++;
+//            std::cout << item->text().toStdString() << '\n';
+        }
+    }
+    return checkedGenres.toString();
+}
+
+auto Genre::uncheckBoxes() noexcept -> void {
+    checkboxes.forEach( [this] ( auto & p ) {
+        p->setCheckState(Qt::Unchecked);
+    } );
+}

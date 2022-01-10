@@ -3,6 +3,7 @@
 //
 
 #include "LoginWindow.h"
+#include "RequestHandler.h"
 
 LoginWindow::LoginWindow(QWidget *parent) {
     (void) LoginWindow::createComponents();
@@ -60,6 +61,10 @@ auto LoginWindow::adjustComponents() noexcept -> LoginWindow & {
 }
 
 auto LoginWindow::connectComponents() noexcept -> LoginWindow & {
+
+    connect(pLoginButton, SIGNAL(clicked()), this, SLOT(loginPressed()));
+    connect(pCreateButton, SIGNAL(clicked()), this, SLOT(createAccountPressed()));
+
     return * this;
 }
 
@@ -81,4 +86,27 @@ auto LoginWindow::styleComponents() noexcept -> LoginWindow & {
 
 auto LoginWindow::closeEvent(QCloseEvent *) noexcept -> void {
     emit this->closed();
+}
+
+void LoginWindow::loginPressed() {
+    if(pUserEdit->text().isEmpty() || pPassEdit->text().isEmpty())
+        return;
+
+    if (! RequestHandler::login(pUserEdit->text(), pPassEdit->text()) )
+        return;
+
+    this->close();
+}
+
+void LoginWindow::createAccountPressed() {
+
+    if(pUserEdit->text().isEmpty() || pPassEdit->text().isEmpty())
+        return;
+
+    if (! RequestHandler::create (pUserEdit->text(), pPassEdit->text()))
+        return;
+
+    RequestHandler::login (pUserEdit->text(), pPassEdit->text());
+
+    this->close();
 }

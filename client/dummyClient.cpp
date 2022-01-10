@@ -5,14 +5,6 @@
 #include "include.h"
 #include "../common/Socket.h"
 
-class RequestHandler {
-
-    static auto makeLoginRequest(String const &, String const &) -> bool;
-    static auto makeCreateRequest(String const &, String const &) -> bool;
-    static auto makeBooksRequest(String const &) -> String;
-
-
-};
 
 #include <filesystem>
 
@@ -113,7 +105,7 @@ int main(){
 
     };
 
-    auto makeRecommendRequest = [] {
+    auto makeRecommendRequest       = [] {
 
         UniquePointer < Socket > clientSocket = new Socket;
         clientSocket -> connect(IP, PORT);
@@ -123,6 +115,19 @@ int main(){
 
     };
 
+
+    std::cout << makeFilterBooksRequest ("{\n"
+                                         "    \"filter\" :\n"
+                                         "    {\n"
+                                         "        \"title\" : \"\",\n"
+                                         "        \"author\": \"\",\n"
+                                         "        \"after\" : 1703,\n"
+                                         "        \"before\": 2200,\n"
+                                         "        \"rating\": 1,\n"
+                                         "        \"genre\": [\n"
+                                         "        ]\n"
+                                         "    }\n"
+                                         "}");
 
     return 0;
 }

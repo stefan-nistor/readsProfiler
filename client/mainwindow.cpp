@@ -20,7 +20,6 @@ auto MainWindow::createComponents() noexcept -> MainWindow & {
 
     this-> pLoginWindow = new LoginWindow ( this );
 
-   connect( this-> pLoginWindow, & LoginWindow::closed, [ this ]{ this->pLoginWindow = nullptr; } );
 
     return * this;
 }
@@ -46,6 +45,8 @@ auto MainWindow::adjustComponents() noexcept -> MainWindow & {
 }
 
 auto MainWindow::connectComponents() noexcept -> MainWindow & {
+    connect( this-> pLoginWindow, & LoginWindow::closed, [ this ]{ this->pLoginWindow = nullptr; } );
+    connect( this->pFilter, & Filter::listReceived, this, &MainWindow::populateTable );
     return * this;
 }
 
@@ -73,3 +74,18 @@ MainWindow::~MainWindow() noexcept {
     this->pLoginWindow = nullptr;
 
 }
+
+/// get filteredBookList jsonString as param
+void MainWindow::populateTable(const String & jsonString) {
+
+    pLibraryTable->clear();
+    pLibraryTable->setRowCount(0);
+    pLibraryTable->styleComponents();
+
+    auto books = JSON :: parse(jsonString).getArray("books");
+
+    for (const auto &item : books){
+        pLibraryTable->addEntry(item.getJSON().toString());
+    }
+}
+

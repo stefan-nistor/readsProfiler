@@ -74,6 +74,7 @@ auto Server::filterBooks( String const & filterString) noexcept -> String {
                 if (book.getJSON().getInt("year") <= filter.getInt("before") &&
                     book.getJSON().getInt("year") >= filter.getInt("after")) {
                     if (book.getJSON().getInt("rating") >= filter.getInt("rating")) {
+                        /// for each genre
                         for (auto const &gen: filter.getArray("genre")) {
                             if (book.getJSON().getString("genre").contains(gen.getString())) {
 
@@ -92,12 +93,32 @@ auto Server::filterBooks( String const & filterString) noexcept -> String {
                                 results.put(nrBooks, result);
 
                                 filterFileLock.unlock();
-                            }
+                            } else continue;
                         }
-                    }
-                }
-            }
-        }
+
+                        /// if no genre - stupid implementation ik but it works
+                        if(filter.getArray("genre").toString() == "[]"){
+                            JSON result;
+                            nrBooks++;
+
+                            filterFileLock.lock();
+
+                            result.put("ISBN", book.getJSON().getInt("ISBN"));
+                            result.put("title", book.getJSON().getString("title"));
+                            result.put("author", book.getJSON().getString("author"));
+                            result.put("genre", book.getJSON().getString("genre"));
+                            result.put("year", book.getJSON().getInt("year"));
+                            result.put("rating", book.getJSON().getInt("rating"));
+                            result.put("diskPath", book.getJSON().getString("diskPath"));
+                            results.put(nrBooks, result);
+
+                            filterFileLock.unlock();
+                        }
+
+                    } else continue;
+                } else continue;
+            } else continue;
+        } else continue;
     }
     return results.toString();
 }
@@ -144,3 +165,9 @@ auto Server::downloadBook(int isbn) noexcept -> String {
 
     return result.str();
 }
+
+auto Server::recommendBooks() noexcept -> String {
+    return String();
+}
+
+

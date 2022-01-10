@@ -19,11 +19,22 @@ public:
     auto connectComponents()    noexcept -> LibraryTable & override;
     auto styleComponents()      noexcept -> LibraryTable & override;
 
+    auto addEntry (String const &) noexcept -> void;
+
 private:
 
     QStringList  tableHeader {nullptr};
 
-
+    enum{
+        ISBN_COL,
+        TITLE_COL,
+        AUTHOR_COL,
+        GENRE_COL,
+        YEAR_COL,
+        RATING_COL,
+        READ_COL,
+        DOWNLOAD_COL
+    };
 };
 
 

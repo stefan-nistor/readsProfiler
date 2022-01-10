@@ -6,6 +6,14 @@
 #define READSPROFILER_SOCKET_H
 #include "include.h"
 
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/stat.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+
+
 class Socket {
 private:
 
@@ -242,6 +250,20 @@ public:
 
         return * this;
 
+    }
+
+    auto operator= (Socket const & socket) noexcept -> Socket &{
+        if (& socket == this)
+            return * this;
+
+        (void) this->close();
+
+        this->sock = socket.sock;
+        this->_port = socket._port;
+        this->_packageSize = socket._packageSize;
+        this->_connected = socket._connected;
+
+        return * this;
     }
 
 };

@@ -3,6 +3,8 @@
 #include "../dependencies/include.h"
 #include "Genre.h"
 #include <CDS/Pointer>
+#include "RequestHandler.h"
+
 
 using namespace cds;
 
@@ -18,6 +20,18 @@ public:
     auto connectComponents()    noexcept -> Filter & override;
     auto styleComponents()      noexcept -> Filter & override;
 
+    auto getFilters() noexcept -> String;
+    auto getGenre() noexcept -> String;
+
+    inline auto getFilteredBooks() noexcept -> String {
+        return this->filteredBookList;
+    }
+
+public slots:
+    void filterPressed();
+
+signals:
+    void listReceived(String const & list);
 
 private:
 
@@ -43,6 +57,8 @@ private:
 
     UniquePointer < QPushButton >   pFilterButton      {nullptr};
     UniquePointer < QPushButton >   pRecommendButton   {nullptr};
+
+    String filteredBookList {};
 
 };
 

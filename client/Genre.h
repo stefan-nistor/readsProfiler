@@ -17,6 +17,10 @@ public:
     auto connectComponents()    noexcept -> Genre & override;
     auto styleComponents()      noexcept -> Genre & override;
 
+    auto getGenre() noexcept -> String;
+    auto uncheckBoxes () noexcept -> void;
+
+
 private:
 
     UniquePointer < QLayout > pMainLayout {nullptr};

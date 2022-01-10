@@ -75,7 +75,7 @@ auto Filter::adjustComponents() noexcept -> Filter & {
     pMinDateLabel->setBuddy( pMinDateEdit );
     pMaxDateLabel->setBuddy( pMaxDateEdit );
 
-    pRatingLabel->setBuddy( pMinDateEdit );
+    pRatingLabel->setBuddy( pRatingBox );
 
     pGenreLabel->setBuddy( pGenreScrollArea );
 
@@ -83,6 +83,9 @@ auto Filter::adjustComponents() noexcept -> Filter & {
 }
 
 auto Filter::connectComponents() noexcept -> Filter & {
+
+    connect(pFilterButton, SIGNAL(clicked()), this, SLOT(filterPressed()));
+
     return * this;
 }
 
@@ -97,17 +100,48 @@ auto Filter::styleComponents() noexcept -> Filter & {
     pRatingLabel->setText( "Rating" );
     pGenreLabel->setText( "Genre" );
 
-    pFilterButton->setText( "Filter" );
+    pFilterButton->setText( "Get Books" );
     pRecommendButton->setText( "Recommend" );
 
     pMinDateEdit->setDisplayFormat( "yyyy" );
     pMaxDateEdit->setDisplayFormat( "yyyy" );
 
-    QDate minDate;
+    QDate minDate, maxDate;
     minDate.setDate(1970,1,1);
-
+    maxDate.setDate(2022,1,1);
     pMinDateEdit->setDate(minDate);
-    pMaxDateEdit->setDate(QDate::currentDate());
+    pMaxDateEdit->setDate(maxDate);
+    pRatingBox->setMinimum(1);
+    pRatingBox->setMaximum(5);
 
     return * this;
+}
+
+void Filter::filterPressed() {
+
+    JSON bookList;
+    auto list = RequestHandler :: makeFilterBooksRequest(this->getFilters());
+    bookList.put("books", JSON::Array :: parse(list) );
+
+    filteredBookList = bookList.toString();
+
+    emit listReceived(filteredBookList);
+}
+
+auto Filter::getFilters() noexcept -> String {
+    JSON result;
+    JSON filters;
+
+    result.put("title", pTitleLineEdit->text().toStdString());
+    result.put("author", pAuthorLineEdit->text().toStdString());
+    result.put("after", Int::parse(pMinDateEdit->text().toStdString()));
+    result.put("before", Int::parse(pMaxDateEdit->text().toStdString()));
+    result.put("rating", Int::parse (pRatingBox->text().toStdString()));
+    result.put("genre",  JSON::Array::parse(this->pGenres->getGenre()));
+
+    auto gen = this->pGenres->getGenre();
+
+    filters.put("filter", result);
+
+    return filters.toString();
 }

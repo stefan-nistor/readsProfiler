@@ -16,6 +16,8 @@ public:
 
     auto closeEvent( QCloseEvent * ) noexcept -> void override;
 
+    constexpr auto getLoggedStatus () const noexcept -> bool {return this->isConnected;}
+
     ~LoginWindow() noexcept override {
 
         pMainLayout->removeWidget( pInfoLabel );
@@ -32,13 +34,18 @@ public:
 
         pLabelLayout->removeWidget( pUserLabel );
         pLabelLayout->removeWidget( pPassLabel );
-
     }
+
+public slots:
+    void loginPressed();
+    void createAccountPressed();
 
 signals:
     void closed();
 
 private:
+
+    bool isConnected {false};
 
     UniquePointer < QLayout > pMainLayout       {nullptr};
     UniquePointer < QLayout > pCredentialLayout {nullptr};

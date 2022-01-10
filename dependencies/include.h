@@ -18,12 +18,6 @@
 #include <QPushButton>
 #include <QSplitter>
 
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/stat.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
 
 #include "../client/AbstractDrawable.h"
 #include <CDS/Pointer>

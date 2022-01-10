@@ -21,14 +21,18 @@ public:
 
     auto closeEvent ( QCloseEvent * ) noexcept -> void override;
 
+    //auto populateTable (const String & ) noexcept -> void;
+
     ~MainWindow() noexcept override;
+
+public slots:
+    void populateTable (const String & );
 
 private:
     UniquePointer < Filter > pFilter {nullptr};
     UniquePointer < QLayout > pMainLayout {nullptr};
     UniquePointer < LibraryTable > pLibraryTable {nullptr};
     UniquePointer < QSplitter > pSplitter {nullptr};
-
     UniquePointer < LoginWindow > pLoginWindow {nullptr};
 
 };
